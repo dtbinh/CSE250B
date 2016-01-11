@@ -6,7 +6,6 @@
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \usepackage{xcolor}
-
  \usepackage{tgtermes}
 
  \usepackage[
@@ -36,6 +35,7 @@ bindingoffset=0mm, top=20mm,bottom=20mm}
 
 \theoremstyle{mytheor}
 \newtheorem{defi}{Definition}
+\usepackage[ruled, vlined, linesnumbered,lined,boxed,commentsnumbered]{algorithm2e}
 
 % my own titles
 \makeatletter
@@ -77,6 +77,31 @@ bindingoffset=0mm, top=20mm,bottom=20mm}
 \date{\today}
 
 \maketitle
+
+\section*{Problem 1}
+\subsection*{1} 
+Apply \textit{k}-means algorithm to the training data with $k = M$ clusters, and for each cluster, we select its 
+centroid as our prototype and associate the prototype with the class that has highest count in that cluster.
+
+\subsection*{2}
+{\LinesNumberedHidden
+\begin{algorithm}[H]
+	\DontPrintSemicolon
+	\SetAlgoNoLine
+	
+	\caption{Clustering prototype selection algorithm}
+	% \SetKwInOut{Input}{Input}
+	% \SetKwInOut{Output}{Output}
+	\textbf{Input: }{$\mathbf{X}^{N \times d}, \mathbf{Y}^{N \times 1}$} \\
+	\textbf{Output: }{$\mathbf{XP}^{M \times d}, \mathbf{YP}^{N \times 1}$} \\
+	Apply $k$-means clustering to the input data $\mathbf{X}^{N \times d}$, and get their clustering labels $\mathbf{L}^{N \times 1}$ \\
+	Calculate the average of data points in each cluster $\Omega_i$: $\mathbf{XP}_i = \frac{1}{|\Omega_i|} \sum\limits_{\mathbf{x} \in \Omega_i}{\mathbf{x}}$ \\
+	Set $\mathbf{YP}_i$ to the class label with most occurrence in that cluster
+\end{algorithm}
+}
+
+\subsection*{3}
+
 
 
 \end{document}
