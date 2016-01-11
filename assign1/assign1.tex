@@ -39,18 +39,18 @@ bindingoffset=0mm, top=20mm,bottom=20mm}
 
 % my own titles
 \makeatletter
-\renewcommand{\maketitle}{
-\begin{center}
-\vspace{2ex}
-{\huge \textsc{\@title}}
-\vspace{1ex}
-\\
-\linia\\
-\@author \hfill \@date
-\vspace{4ex}
-\end{center}
-}
-\makeatother
+% \renewcommand{\maketitle}{
+% \begin{center}
+% \vspace{2ex}
+% {\huge \textsc{\@title}}
+% \vspace{1ex}
+% \\
+% \linia\\
+% \@author \hfill \@date
+% \vspace{4ex}
+% \end{center}
+% }
+% \makeatother
 %%%
 
 % custom footers and headers
@@ -59,7 +59,7 @@ bindingoffset=0mm, top=20mm,bottom=20mm}
 \lhead{}
 \chead{}
 \rhead{}
-\lfoot{Assignment \textnumero{} 5}
+\lfoot{}
 \cfoot{}
 \rfoot{Page \thepage\ /\ \pageref*{LastPage}}
 \renewcommand{\headrulewidth}{0pt}
@@ -70,86 +70,13 @@ bindingoffset=0mm, top=20mm,bottom=20mm}
 
 \begin{document}
 
-\title{Math Assignment -- Complex Numbers}
+\title{CSE 250B: Machine Learning}
 
-\author{Joe Doe, Some University}
+\author{Sai Bi}
 
-\date{01/01/2014}
+\date{\today}
 
 \maketitle
-
-\section{Theoretical background}
-
-\subsection{General expression}
-
-\begin{defi}
-The \textbf{complex number} $z$ is a number that can be expressed in the form
-\begin{equation}
-z = a + bi\ ,
-\label{r1}
-\end{equation}
-where $a, b \in \mathbb{R}$ and $i$ is an \textbf{imaginary unit}, defined as:
-$$i=\sqrt{-1} \qquad \text{or} \qquad i^2= -1\ .$$
-\end{defi}
-
-\subsection{Complex plane}
-
-A complex number can be presented as a point in a two-dimensional \textbf{complex plane} -- see Fig.~\ref{fig:cmpl}.
-
-
-\begin{figure}[!htb]
-\centering
-\begin{tikzpicture}[scale=0.25]
-\draw[->] (0,10) -- coordinate (x axis mid) (30,10)  node[right] {$Re$};
-\draw[->] (10,0) -- coordinate (y axis mid) (10,30)  node[above] {$Im$};
-\fill[blue] (22,20) circle (8pt) node[above] {$z = a + bi$};
-\draw[dashed] (22,20) -- (22,10) node[below] {$a=\Re~z$};
-\draw[dashed] (22,20) -- (10,20) node[left] {$b=\Im~z$};
-\draw[thin,red] (22,20) -- (10,10) node[above=48pt,right=30pt] {$|z|$};
-\draw[red,thin] (15,10) arc(0:40:5) node[right=13pt,below=2pt] {$\varphi$};
-\end{tikzpicture}
-\caption{\label{fig:cmpl}Complex plane.}
-\end{figure}
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-\clearpage
-
-\section{Homework}
-
-\paragraph{Task 1}
-Calculate the following:
-\begin{multicols}{2}
-\begin{enumerate}[(a)]
-\item $\frac{1+5i}{2-i}$
-\item $(2-3i)\cdot(4+3i)$
-\item $i^{14}$
-\item $\frac{1-i}{1+i}$
-\end{enumerate}
-\end{multicols}
-
-\paragraph{Task 2}
-This is a two part assignment:
-\begin{enumerate}
-\item If \ldots then \ldots is?
-\begin{multicols}{3}
-\begin{enumerate}[(a)]
-\item 1
-\item 0
-\item -1
-\end{enumerate}
-\end{multicols}
-\item If \ldots then \ldots ?
-\begin{multicols}{2}
-\begin{enumerate}[(a)]
-\item Yes
-\item No
-\end{enumerate}
-\end{multicols}
-\end{enumerate}
-
-\paragraph{Task 3}
-As you can see on Fig.~\ref{fig:cmpl}\ldots Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 
 
 \end{document}
