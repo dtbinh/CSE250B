@@ -3,6 +3,7 @@ import numpy as np
 import scipy as sp
 import scipy.spatial as ss
 import scipy.io as si
+import scipy.stats
 
 def OneKNN(train_imgs, train_labels, test_imgs, test_labels):
     test_num = test_imgs.shape[0]
@@ -22,15 +23,39 @@ def OneKNN(train_imgs, train_labels, test_imgs, test_labels):
     print 'Error %f' %error
     return error
 
-    # print 'Build kd-tree...'
-    # kd_tree = ss.cKDTree(train_imgs)
-    # print 'Testing...'
+def KNNTest(dist, sample_num, test_labels, train_labels):
+    train_num = dist.shape[1]
+    test_num = dist.shape[0]
+    ids = np.random.random_integers(0, train_num-1, sample_num)
+    select_dist = dist[:, ids]
+    count = 0
     # for i in range(0, test_num):
-    #     temp, index = kd_tree.query(test_imgs[i,:])
-    #     if test_labels[i] != train_labels[index]:
+    #     index = np.argmin(select_dist[i, :])
+    #     if test_labels[i] != train_labels[ids[index]]:
     #         count = count + 1
-    # print 'Error %f', count / test_num
+    index = np.argmin(select_dist, axis=1)
+    # result = (test_labels != np.array(train_labels[ids[index]]))
+    # result = np.equal(test_labels, train_labels[ids[index]])
+    # count = len(result.nonzero())
 
+    count = np.count_nonzero(test_labels - train_labels[ids[index]])
+    error = count / float(test_num)
+    return error
+
+def MeanConfidenceInterval(data, confidence=0.95):
+    a = 1.0*np.array(data)
+    n = len(a)
+    m, se = np.mean(a), scipy.stats.sem(a)
+    h = se * sp.stats.t._ppf((1+confidence)/2., n-1)
+    return m, h
+
+def UniformSamplingTest(dist, sample_num, test_labels, train_labels, repeat_num):
+    error = np.zeros((repeat_num, 1))
+    for i in range(0, repeat_num):
+        error[i] = KNNTest(dist, sample_num, test_labels, train_labels)
+    return error
+
+def PrototypeSelectionTest(sample_num, test_labels, train_labels, repeat_num):
 
 
 
@@ -41,22 +66,16 @@ if __name__ == '__main__':
     train_imgs, train_labels = loader.load_training()
     print 'Load testing...'
     test_imgs, test_labels = loader.load_testing()
-    # si.savemat('%s/train.mat'%data_dir, {'train':train_imgs, 'tr_l':train_labels})
-    # si.savemat('%s/test.mat'%data_dir, {'test':test_imgs, 't_l':test_labels})
-    print test_imgs.shape
-    print train_imgs.shape
-    train_num = train_imgs.shape[0]
-    repeat = 20
-    error = np.zeros((repeat, 1))
-    select = 1000
-    OneKNN(train_imgs, train_imgs, test_imgs, test_labels)
-    for i in range(0, repeat):
-        print 'Test %d...'%i
-        ids = np.random.random_integers(0, train_num-1, (1,1000))
-        ids = np.squeeze(ids)
-        # print ids.shape
-        select_train_imgs = train_imgs[ids, :]
-        select_train_labels = train_imgs[ids]
-        error[i] = OneKNN(select_train_imgs, select_train_labels, test_imgs, test_labels)
-    np.save('%s/%d'%(data_dir, select), error)
+
+    print 'Load dist...'
+    dist = np.load('%s/dist.npy'%data_dir)
+    sample_num = 10000
+    repeat_num = 50
+    error = UniformSamplingTest(dist, sample_num, test_labels, train_labels, repeat_num)
+    mean_error, interval = MeanConfidenceInterval(error)
+    print mean_error
+    print interval
+    np.save('%s/error_%d'%(data_dir, sample_num), error)
+    np.save('%s/result_%d'%(data_dir, sample_num), [mean_error, interval])
+
 
