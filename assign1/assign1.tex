@@ -36,7 +36,7 @@ bindingoffset=0mm, top=20mm,bottom=20mm}
 \theoremstyle{mytheor}
 \newtheorem{defi}{Definition}
 \usepackage[ruled, vlined, linesnumbered,lined,boxed,commentsnumbered]{algorithm2e}
-
+\usepackage[parfill]{parskip}
 % my own titles
 \makeatletter
 % \renewcommand{\maketitle}{
@@ -52,7 +52,7 @@ bindingoffset=0mm, top=20mm,bottom=20mm}
 % }
 % \makeatother
 %%%
-
+\setlength\parindent{0pt}
 % custom footers and headers
 \usepackage{fancyhdr,lastpage}
 \pagestyle{fancy}
@@ -149,23 +149,39 @@ $d_1 + d_2$ is a metric, let $d = d_1 + d_2$:
 \end{enumerate}
 
 \subsection*{d}
-Squared Euclidean distance is not metric. Let $m = 1, x= 4, y= 2, z= 0$, then $d(x,z) = 16 \geq (y,z) + d(x,y) = 8$. Therefore, it doesn't satisfy 
+Squared Euclidean distance is not metric. 
+
+Let $m = 1, x= 4, y= 2, z= 0$, then $d(x,z) = 16 \geq (y,z) + d(x,y) = 8$. Therefore, it doesn't satisfy 
 triangle inequality. 
 
 
 \subsection*{e}
-\begin{enumerate}
-	\item non-negativity: first we have the inequation $\forall x > 0, \text{log}x \leq x-1$, and the equality holds if and only if $x = 1$. Therefore,
-	\begin{eqnarray*}
-		d(p,q) &=& \sum_{i}p_i \text{log}\frac{p_i}{q_i} \\
-				&=& -\sum_{i}p_i \text{log}\frac{q_i}{p_i} \\
-				&\geq& -\sum_{i}p_i (\frac{q_i}{p_i} - 1) \\
-				&=&-\sum_{i}(q_i - p_i) \\
-				&=&-\sum_{i} q_i + \sum_{i}p_i = 0
-	\end{eqnarray*}
-	\item identity of indiscernibles:
-	\item symmetry: 
-	\item triangle inequality: 
-\end{enumerate}
+\textit{Kullback-Leibler divergence} is not a metric. 
+
+Let $p = (0.2, 0.8)^T, q = (0.4, 0.6)^T$,
+then $d(p,q) = 0.2 \text{ log }0.5 + 0.5\text{ log } \frac{4}{3}$, $d(q,p) = 0.4 \text{ log } 2 + 0.6 \text{ log }\frac{3}{4}$,
+obviously we have $d(p,q) \neq d(q,p)$. That is, Kullback-Leibler divergence doesn't satisfy 
+\textit{symmetry} requirement of metric, and thus it is not a metric.
+% \begin{enumerate}
+% 	\item non-negativity: first we have the inequation:
+% 	 \begin{equation}\label{equ:1e}
+% 	 	\text{log}~x \leq x-1, \forall x > 0,  \text{the equality holds if and only if }
+% 	 	 x = 1
+% 	 \end{equation}
+% 	Therefore,
+% 	\begin{align}
+% 	\label{equ:3e}
+% 		\begin{split}
+% 			d(p,q) &= \sum_{i}p_i \text{log}\frac{p_i}{q_i} \\
+% 					&= -\sum_{i}p_i \text{log}\frac{q_i}{p_i} \\
+% 					&\geq -\sum_{i}p_i (\frac{q_i}{p_i} - 1) \\
+% 					&=-\sum_{i}(q_i - p_i) \\
+% 					&=-\sum_{i} q_i + \sum_{i}p_i = 0
+% 		\end{split}
+% 	\end{align}
+% 	\item identity of indiscernibles: If $p = q$, obviously we have $d(p,q) =0 $. For the equality $d(p,q) = 0$ in Equation~\ref{equ:3e} to hold, given Equation~\ref{equ:1e}, we need $\frac{q_i}{p_i} = 1, \forall i$, that is $p = q$.
+% 	\item symmetry: 
+% 	\item triangle inequality: 
+% \end{enumerate}
 
 \end{document}
