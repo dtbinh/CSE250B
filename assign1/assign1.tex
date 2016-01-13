@@ -155,7 +155,14 @@ triangle inequality.
 
 \subsection*{e}
 \begin{enumerate}
-	\item non-negativity: 
+	\item non-negativity: first we have the inequation $\forall x > 0, \text{log}x \leq x-1$, and the equality holds if and only if $x = 1$. Therefore,
+	\begin{eqnarray*}
+		d(p,q) &=& \sum_{i}p_i \text{log}\frac{p_i}{q_i} \\
+				&=& -\sum_{i}p_i \text{log}\frac{q_i}{p_i} \\
+				&\geq& -\sum_{i}p_i (\frac{q_i}{p_i} - 1) \\
+				&=&-\sum_{i}(q_i - p_i) \\
+				&=&-\sum_{i} q_i + \sum_{i}p_i = 0
+	\end{eqnarray*}
 	\item identity of indiscernibles:
 	\item symmetry: 
 	\item triangle inequality: 
