@@ -79,11 +79,11 @@ bindingoffset=0mm, top=20mm,bottom=20mm}
 \maketitle
 
 \section*{Problem 1}
-\subsection*{1} 
+\subsection*{a} 
 Apply \textit{k}-means algorithm to the training data with $k = M$ clusters, and for each cluster, we select its 
 centroid as our prototype and associate the prototype with the class that has highest count in that cluster.
 
-\subsection*{2}
+\subsection*{b}
 {\LinesNumberedHidden
 \begin{algorithm}[H]
 	\DontPrintSemicolon
@@ -100,18 +100,65 @@ centroid as our prototype and associate the prototype with the class that has hi
 \end{algorithm}
 }
 
-\subsection*{3}
+\subsection*{c}
 \begin{tabular}{|l|c|c|c|c|c|}
 	\hline
 		&  $1000$ & $2000$ & $5000$ & $10000$  \\ \hline
 	Uniform sampling &  $11.45 \pm 0.11$ \ & $8.92 \pm 0.08 $ & $6.57 \pm 0.05 $ & $5.29 \pm 0.04$  \\ \hline 
-	Prototype selection &   & 2000 & 5000 & 10000  \\ \hline 
+	Prototype selection & $6.44 \pm 0.06$  & $5.31\pm 0.05$ & 5000 & 10000  \\ \hline 
 \end{tabular}
 
 \begin{itemize}
 	\item All experiments are repeated $50$ times.
 	\item The error is reported as a $0.95$ confidence interval.
+	\item For $k$-means, maximum iteration number is set to $100$, and initialization is chosen randomly.
 \end{itemize}
 
+\section*{Problem 3}
+\subsection*{a}
+$\ell_1$ distance is a metric:
+\begin{enumerate}
+	\item non-negativity: $d(x,y) = ||x-y||_1 = \sum\limits_{i} |x_i - y_i| \geq 0$
+	\item identity of indiscernibles: $||x-y||_1 = 0   \Leftrightarrow \sum\limits_{i} |x_i - y_i| = 0 \Leftrightarrow \forall i, x_i = y_i 
+	\Leftrightarrow x = y$ 
+	\item symmetry: $||x-y||_1 = \sum\limits_{i}|x_i - y_i| = \sum\limits_{i}|y_i - x_i| = ||y-x||_1$
+	\item triangle inequality: $||x-z||_1 = \sum\limits_{i}|x_i - y_i| \leq \sum\limits_{i}(|x_i-y_i| + |y_i-z_i|) = ||x - y||_1 + ||y-z||_1 $
+\end{enumerate}
+
+
+\subsection*{b}
+$d_1 + d_2$ is a metric, let $d = d_1 + d_2$:
+\begin{enumerate}
+	\item non-negativity: $d(x,y) = d_1(x,y) + d_2(x,y) \geq 0$
+	\item identity of indiscernibles: $d(x,y) = 0 \Leftrightarrow d_1(x,y) = 0, d_2(x,y) = 0 \Leftrightarrow x = y$
+	\item symmetry: $d(x,y) = d_1(x,y) + d_2(x,y) = d_1(y,x) + d_2(y,x) = d(y,x)$
+	\item triangle inequality: $d(x,z) = d_1(x,z) + d_2(x_z) \leq d_1(x,y) + d_1(y,z) + d_2(x,y) + d_2(y,z) = d(x,y) + d(y,z) $
+\end{enumerate}
+
+
+\subsection*{c}
+\textit{Hamming distance} on $\mathbf{\chi}$ is  a metric:
+\begin{enumerate}
+	\item non-negativity: obviously, the number of different positions is non-negative
+	\item identity of indiscernibles: obviously, if $x$ and $y$ are the same for every position, $x$ must be the same as $y$
+	\item symmetry: obviously since the relationship of different is symmetry, the number of positions $x$ is not equal to $y$ must be equal to 
+	the number of positions $y$ is not equal to $x$ 
+	\item triangle inequality: for any position $x$, if $x_i = z_i$, then $d(y_i,z_i) + d(x_i, y_i) \geq d(x_i, z_i) = 0$; if $x_i \neq z_i$, then
+	$y_i$ differs from at either $x_i$ or $z_i$ or both, that is, $d(y_i,z_i) + d(x_i, y_i) \geq d(x_i, z_i) = 1$. Sum up every position, we must have
+	$d(x,z) \leq d(x,y) + d(y,z)$
+\end{enumerate}
+
+\subsection*{d}
+Squared Euclidean distance is not metric. Let $m = 1, x= 4, y= 2, z= 0$, then $d(x,z) = 16 \geq (y,z) + d(x,y) = 8$. Therefore, it doesn't satisfy 
+triangle inequality. 
+
+
+\subsection*{e}
+\begin{enumerate}
+	\item non-negativity: 
+	\item identity of indiscernibles:
+	\item symmetry: 
+	\item triangle inequality: 
+\end{enumerate}
 
 \end{document}
