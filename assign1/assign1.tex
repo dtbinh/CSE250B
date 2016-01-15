@@ -92,8 +92,8 @@ centroid as our prototype and associate the prototype with the class that has hi
 	\caption{Clustering prototype selection algorithm}
 	% \SetKwInOut{Input}{Input}
 	% \SetKwInOut{Output}{Output}
-	\textbf{Input: }{$\mathbf{X}^{N \times d}, \mathbf{Y}^{N \times 1}$} \\
-	\textbf{Output: }{$\mathbf{XP}^{M \times d}, \mathbf{YP}^{N \times 1}$} \\
+	\textbf{Input: }{$\mathbf{X}^{N \times d}, \mathbf{Y}^{N \times 1}, M$} \\
+	\textbf{Output: }{$\mathbf{XP}^{M \times d}, \mathbf{YP}^{M \times 1}$} \\
 	\begin{enumerate}
 		\item Apply $k$-means clustering to the input data $\mathbf{X}^{N \times d}$, and get their clustering labels $\mathbf{L}^{N \times 1}$ \\
 		\item Calculate the average of data points in each cluster $\Omega_i$: $\mathbf{XP}_i = \frac{1}{|\Omega_i|} \sum\limits_{\mathbf{x} \in \Omega_i}{\mathbf{x}}$ \\
@@ -161,7 +161,7 @@ The optimal classifier is:
 \begin{equation}
 h(x) = \left\{ \begin{array}{ll}
 0 & \mbox{if $\eta(x) * c_{10} \leq (1-\eta(x)) * c_{01} $}\\
-1 & \mbox{others} \end{array} 
+1 & \mbox{otherwise} \end{array} 
 \right.
 \end{equation}
 
