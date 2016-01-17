@@ -7,8 +7,7 @@ import scipy.stats
 import scipy.cluster as sc
 import sklearn.cluster as sklearn
 
-def AnotherTest(train_imgs, train_labels, test_imgs, test_labels):
-    
+
 
 
 def OneKNN(train_imgs, train_labels, test_imgs, test_labels):
