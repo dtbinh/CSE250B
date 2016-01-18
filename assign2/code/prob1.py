@@ -28,18 +28,63 @@ def calculate_pj_w(train_data, train_label):
         pjw[label, word_index] += count[i]
     return pjw
 
-def 
+def test(test_data, test_label, train_pj, train_pjw):
+    pj = np.log(train_pj)
+    count = np.sum(train_pjw, 1)
+    pjw = np.divide(train_pjw + 1, count + 2)
+    pjw = np.log(pjw)
+
+
+    test_num = np.max(test_data[:, 0])
+    doc_id = test_data[:, 0]
+    word_id = test_data[:,1]
+    word_count = test_data[:,2]
+
+    word_num = train_pjw.shape[0]
+
+    error_count = 0
+    for i in range(0, test_num):
+        index = np.where(doc_id == i + 1)
+        freq = np.zeros((1, word_num))
+        freq[word_id[index] - 1] = word_count[index]
+        total = np.sum(word_count[index])
+        freq = freq / count
+
+        error = np.zeros((20, 1))
+        for j in range(0, 20):
+            temp = np.multiply(freq, pjw[j, :])
+            error[j] = np.sum(temp) + pj[j]
+        index = np.argmin(error)
+        if index != test_label[i] - 1:
+            error_count = error_count + 1
+
+    print error_count / float(test_num)
+
+
+
+
+
+
 
 
 
 if __name__ == '__main__':
     # Load training data
     data_dir = 'C:\\Users\\bisai\\Documents\\GitHub\\CSE250B\\data\\20news-bydate\\matlab\\'
-    print 'Load training data...'
-    train = np.loadtxt('%strain.data'%data_dir)
-    print 'Load training label...'
-    train_label = np.loadtxt('%strain.label'%data_dir)
+    # print 'Load training data...'
+    # train = np.loadtxt('%strain.data'%data_dir)
+    # print 'Load training label...'
+    # train_label = np.loadtxt('%strain.label'%data_dir)
     # pij = calculate_pi_j(train, train_label)
-    # print
-    pjw = calculate_pj_w(train, train_label)
-    np.save('%spjw'%data_dir, pjw)
+    # np.save('%spj'%data_dir, pij)
+    # pjw = calculate_pj_w(train, train_label)
+    # np.save('%spjw'%data_dir, pjw)
+
+    pj = np.load('%spj.npy'%data_dir)
+    pjw = np.load('%spjw.npy'%data_dir)
+    print 'Load test data...'
+    test_data = np.loadtxt('%stest.data'%data_dir)
+    print 'Load test label...'
+    test_label = np.loadtxt('%stest.label'%data_dir)
+
+    test(test_data,test_label,pj, pjw)
