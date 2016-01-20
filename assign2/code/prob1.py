@@ -17,7 +17,8 @@ def calculate_pj_w(train_data, train_label):
     doc_id = data[:, 0]
     word_id = data[:,1]
     count = data[:, 2]
-    word_num = np.max(word_id)
+    # word_num = np.max(word_id)
+    word_num = 61188
     doc_num = np.max(doc_id)
 
     pjw = np.zeros((20, word_num), 'int64')
@@ -30,8 +31,9 @@ def calculate_pj_w(train_data, train_label):
 
 def test(test_data, test_label, train_pj, train_pjw):
     pj = np.log(train_pj)
-    count = np.sum(train_pjw, 1)
-    pjw = np.divide(train_pjw + 1, count + 2)
+    count = np.sum(train_pjw, 1) + 61188
+    count = np.array(count, 'float64')
+    pjw = (train_pjw + 1) / count[:, None]
     pjw = np.log(pjw)
 
 
@@ -40,21 +42,22 @@ def test(test_data, test_label, train_pj, train_pjw):
     word_id = test_data[:,1]
     word_count = test_data[:,2]
 
-    word_num = train_pjw.shape[0]
-
+    word_num = 61188
     error_count = 0
-    for i in range(0, test_num):
+    for i in range(0, int(test_num)):
         index = np.where(doc_id == i + 1)
-        freq = np.zeros((1, word_num))
-        freq[word_id[index] - 1] = word_count[index]
+        freq = np.zeros(word_num)
+
+        freq[word_id[index]-1] = word_count[index]
+
         total = np.sum(word_count[index])
-        freq = freq / count
+        # freq = freq / total
 
         error = np.zeros((20, 1))
         for j in range(0, 20):
             temp = np.multiply(freq, pjw[j, :])
             error[j] = np.sum(temp) + pj[j]
-        index = np.argmin(error)
+        index = np.argmax(error)
         if index != test_label[i] - 1:
             error_count = error_count + 1
 
@@ -79,12 +82,13 @@ if __name__ == '__main__':
     # np.save('%spj'%data_dir, pij)
     # pjw = calculate_pj_w(train, train_label)
     # np.save('%spjw'%data_dir, pjw)
+    # exit(-1)
 
     pj = np.load('%spj.npy'%data_dir)
     pjw = np.load('%spjw.npy'%data_dir)
     print 'Load test data...'
-    test_data = np.loadtxt('%stest.data'%data_dir)
+    test_data = np.loadtxt('%stest.data'%data_dir, 'int')
     print 'Load test label...'
-    test_label = np.loadtxt('%stest.label'%data_dir)
+    test_label = np.loadtxt('%stest.label'%data_dir, 'int')
 
     test(test_data,test_label,pj, pjw)
