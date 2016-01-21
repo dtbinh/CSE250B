@@ -35,7 +35,7 @@ def test(test_data, test_label, train_pj, train_pjw):
     count = np.array(count, 'float64')
     pjw = (train_pjw + 1) / count[:, None]
     pjw = np.log(pjw)
-
+    # pjw = np.log(1 + pjw)
 
     test_num = np.max(test_data[:, 0])
     doc_id = test_data[:, 0]
@@ -52,6 +52,7 @@ def test(test_data, test_label, train_pj, train_pjw):
 
         total = np.sum(word_count[index])
         # freq = freq / total
+        freq = np.log(1 + freq)
 
         error = np.zeros((20, 1))
         for j in range(0, 20):
