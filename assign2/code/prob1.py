@@ -119,4 +119,8 @@ if __name__ == '__main__':
 
     test(train[valid_index, :], train_label, pij, pjw)
 
+    pij = calculate_pi_j(train, train_label)
+    # pij = calculate_pi_j(train, train_label)
+    # np.save('%spj'%data_dir, pij)
+    pjw = calculate_pj_w(train, train_label)
     test(test_data,test_label,pij, pjw)
