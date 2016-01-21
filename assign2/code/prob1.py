@@ -58,7 +58,7 @@ def test(test_data, test_label, train_pj, train_pjw):
 
         total = np.sum(word_count[index])
         # freq = freq / total
-        # freq = np.log(1 + freq)
+        freq = np.log(1.0 + freq)
 
         error = np.zeros((20, 1))
         for j in range(0, 20):
@@ -81,9 +81,9 @@ def test(test_data, test_label, train_pj, train_pjw):
 if __name__ == '__main__':
     # Load training data
     data_dir = 'C:\\Users\\bisai\\Documents\\GitHub\\CSE250B\\data\\20news-bydate\\matlab\\'
-    print 'Load training data...'
+    # print 'Load training data...'
     train = np.loadtxt('%strain.data'%data_dir, 'int')
-    print 'Load training label...'
+    # print 'Load training label...'
     train_label = np.loadtxt('%strain.label'%data_dir, 'int')
 
     total = train_label.shape[0]
@@ -102,16 +102,16 @@ if __name__ == '__main__':
     train_label_index = perm[0:train_num]
     valid_label_index = perm[train_num:]
 
-    pij = calculate_pi_j(train[train_index, :], train_label)
-    # pij = calculate_pi_j(train, train_label)
-    # np.save('%spj'%data_dir, pij)
-    pjw = calculate_pj_w(train[train_index, :], train_label)
-    # pjw = calculate_pj_w(train, train_label)
-    # np.save('%spjw'%data_dir, pjw)
-    # exit(-1)
 
-    # pj = np.load('%spj.npy'%data_dir)
-    # pjw = np.load('%spjw.npy'%data_dir)
+    pij = calculate_pi_j(train[train_index, :], train_label)
+    pjw = calculate_pj_w(train[train_index, :], train_label)
+
+    word_freq = np.sum(pjw, 1)
+    sort_index = np.argsort(word_freq)
+    stop_word_index = sort_index[-400:]
+    pjw[:, stop_word_index] = 0
+
+
     print 'Load test data...'
     test_data = np.loadtxt('%stest.data'%data_dir, 'int')
     print 'Load test label...'
@@ -120,7 +120,7 @@ if __name__ == '__main__':
     test(train[valid_index, :], train_label, pij, pjw)
 
     pij = calculate_pi_j(train, train_label)
-    # pij = calculate_pi_j(train, train_label)
-    # np.save('%spj'%data_dir, pij)
     pjw = calculate_pj_w(train, train_label)
+
+    # pjw[:, stop_word_index] = 0
     test(test_data,test_label,pij, pjw)

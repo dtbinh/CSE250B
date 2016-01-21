@@ -79,10 +79,38 @@ bindingoffset=0mm, top=20mm,bottom=20mm}
 \maketitle
 
 \section*{Problem 1}
-\subsection*{d}
-The error of Naive Bayes is: $21.89\%$.
 
-\subsection*{e}
+\section*{e}
+I have implemented a routine with Naive Bayes for training and testing. And the calculated   $\pi_j$ is calculated as following:
+
+\begin{center}
+\begin{tabular}{|l|c|c|c|c|c|}
+	\hline
+	$j$ &$1$ &$2$ & $3$& $4$&  $5$ \\ \hline
+	$\pi_j (\%)$ & $ 4.26$ & $ 5.16$ & $ 5.08$ & $ 5.21$ & $ 5.10$    \\ \hline
+	
+	$j$ & $6$ & $7$ & $8$& $9$&$10$  \\ \hline
+	$\pi_j (\%)$ & $ 5.25$ & $ 5.16$ & $ 5.25$ & $ 5.29$ & $ 5.27$   \\ \hline
+	
+	$j$ & $11$& $12$& $13$&$14$ &  $15$\\ \hline
+	$\pi_j (\%)$ & $ 5.31$ & $ 5.27$ & $ 5.24$ & $ 5.27$ & $ 5.26$  \\ \hline
+	
+	$j$ & $16$& $17$&$18$ & $19$&  $20$\\ \hline
+	$\pi_j (\%)$ & $ 5.32$ & $ 4.84$ & $ 5.00$ & $ 4.12$ & $ 3.34$ \\ \hline
+	
+\end{tabular}
+\end{center}
+
+The error rate of Naive Bayes is $21.89\%$.
+
+\section*{f}
+\begin{tabular}{|l|l|l|}
+	\hline 
+	& Validation error &  Testing error   \\ \hline
+	Naive Bayes	& $16.10\%$ & $21.89\%$  \\ \hline 
+	$\log(1+f)$ & $15.08\%$ & $20.92\%$  \\ \hline
+	Remove $5000$ stopwords & $15.79\%$ & $21.60\%$ \\ \hline 
+\end{tabular}
 
 
 \section*{Problem 2}
@@ -95,18 +123,6 @@ abstain & \mbox{otherwise}
 \end{array} 
 \right.
 \end{equation}
-
-\section*{e}
-The error rate of Naive Bayes is $21.89\%$.
-
-\section*{f}
-\begin{tabular}{|l|l|l|}
-	\hline 
-	 & Validation error &  Testing error   \\ \hline
-Naive Bayes	& $16.10\%$ & $21.89\%$  \\ \hline 
-$\log(1+f)$ & $15.08\%$ & $20.92\%$  \\ \hline
-
-\end{tabular}
 
 
 
