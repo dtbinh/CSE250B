@@ -79,5 +79,21 @@ bindingoffset=0mm, top=20mm,bottom=20mm}
 \maketitle
 
 \section*{Problem 1}
+\subsection*{d}
+The error of Naive Bayes is: $24.69\%$.
+
+\subsection*{e}
+
+
+\section*{Problem 2}
+The optimal classifier is:
+\begin{equation}
+h(x) = \left\{ \begin{array}{ll}
+0 & \mbox{if $1-\eta(x) < $ min($\eta(x), \theta$)  }\\
+1 & \mbox{if $\eta(x) < $ min($1-\eta(x), \theta$)  }\\
+abstain & \mbox{otherwise}
+\end{array} 
+\right.
+\end{equation}
 
 \end{document}
