@@ -122,8 +122,8 @@ The experiment result is listed as following:
 	& Validation error &  Testing error   \\ \hline
 	Naive Bayes	& $16.10\%$ & $21.89\%$  \\ \hline 
 	$\log(1+f)$ & $15.08\%$ & $20.92\%$  \\ \hline
-	Remove $400$ stopwords & $15.79\%$ & $21.60\%$ \\ \hline 
-	Inverse document frequency & $11.67\%$ & $18.56\%$ \\ \hline
+	Remove $400$ stopwords & $15.79\%$ & $20.60\%$ \\ \hline 
+	Inverse document frequency & $14.71\%$ & $19.36\%$ \\ \hline
 \end{tabular}
 \end{center}
 
@@ -134,9 +134,9 @@ From the table we can see that, inverse document frequency works best on both va
 The optimal classifier is:
 \begin{equation}
 h(x) = \left\{ \begin{array}{ll}
-0 & \mbox{if $1-\eta(x) < $ min($\eta(x), \theta$)  }\\
-1 & \mbox{if $\eta(x) < $ min($1-\eta(x), \theta$)  }\\
-abstain & \mbox{otherwise}
+0 & \mbox{if $\eta(x) < \theta$)  }\\
+1 & \mbox{if $1 - \eta(x) < \theta$)  }\\
+abstain & \mbox{if $\theta \leq \text{min}(\eta(x), 1- \eta(x))$}
 \end{array} 
 \right.
 \end{equation}

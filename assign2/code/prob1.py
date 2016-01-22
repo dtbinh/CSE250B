@@ -82,7 +82,7 @@ def cal_doc_num_of_word(train):
         index = train[i, 1]
         word[index-1] = word[index-1] + 1
 
-    return np.log(np.divide(doc_num, word + 1))
+    return np.log(np.divide(doc_num, word))
 
 
 
@@ -115,7 +115,10 @@ if __name__ == '__main__':
     valid_index = np.in1d(train[:, 0] - 1, perm[train_num:])
 
 
-    print 'cal weight...'
+    # print 'cal weight...'
+    # word_weight = cal_doc_num_of_word(train)
+    # np.save('%sweight'%data_dir, word_weight)
+    # exit(-1)
     word_weight = cal_doc_num_of_word(train[train_index, :])
 
     print 'finish...'
