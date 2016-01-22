@@ -30,7 +30,7 @@ def calculate_pj_w(train_data, train_label):
         pjw[label, word_index] += count[i]
     return pjw
 
-def test(test_data, test_label, train_pj, train_pjw):
+def test(test_data, test_label, train_pj, train_pjw, word_weight = 1.0):
     pj = np.log(train_pj)
     count = np.sum(train_pjw, 1) + 61188
     count = np.array(count, 'float64')
@@ -58,17 +58,31 @@ def test(test_data, test_label, train_pj, train_pjw):
 
         total = np.sum(word_count[index])
         # freq = freq / total
-        freq = np.log(1.0 + freq)
-
+        # freq = np.log(1.0 + freq)
+        freq = np.multiply(word_weight.transpose(), freq)
         error = np.zeros((20, 1))
         for j in range(0, 20):
             temp = np.multiply(freq, pjw[j, :])
             error[j] = np.sum(temp) + pj[j]
+        # error = freq * pjw.transpose() + pj
         index = np.argmax(error)
         if index != test_label[test_doc_id[i]-1] - 1:
             error_count = error_count + 1
 
     print error_count / float(test_num)
+
+
+
+def cal_doc_num_of_word(train):
+    word = np.ones((61188, 1))
+    doc_num = np.unique(train[:, 0]).shape[0]
+    doc_num = float(doc_num) + 61188.0
+
+    for i in range(train[:,1].shape[0]):
+        index = train[i, 1]
+        word[index-1] = word[index-1] + 1
+
+    return np.log(np.divide(doc_num, word + 1))
 
 
 
@@ -81,9 +95,9 @@ def test(test_data, test_label, train_pj, train_pjw):
 if __name__ == '__main__':
     # Load training data
     data_dir = 'C:\\Users\\bisai\\Documents\\GitHub\\CSE250B\\data\\20news-bydate\\matlab\\'
-    # print 'Load training data...'
+    print 'Load training data...'
     train = np.loadtxt('%strain.data'%data_dir, 'int')
-    # print 'Load training label...'
+    print 'Load training label...'
     train_label = np.loadtxt('%strain.label'%data_dir, 'int')
 
     total = train_label.shape[0]
@@ -92,17 +106,20 @@ if __name__ == '__main__':
 
 
     train_num = int(0.8 * total)
-    valid_num = total - train_num
     # np.save('%sperm'%data_dir, perm)
+
+
 
 
     train_index = np.in1d(train[:, 0] - 1, perm[0:train_num])
     valid_index = np.in1d(train[:, 0] - 1, perm[train_num:])
 
-    train_label_index = perm[0:train_num]
-    valid_label_index = perm[train_num:]
 
+    print 'cal weight...'
+    word_weight = cal_doc_num_of_word(train[train_index, :])
 
+    print 'finish...'
+    # word_weight = cal_doc_num_of_word(train[train_index, :])
     pij = calculate_pi_j(train[train_index, :], train_label)
     pjw = calculate_pj_w(train[train_index, :], train_label)
 
@@ -117,10 +134,11 @@ if __name__ == '__main__':
     print 'Load test label...'
     test_label = np.loadtxt('%stest.label'%data_dir, 'int')
 
-    test(train[valid_index, :], train_label, pij, pjw)
+    test(train[valid_index, :], train_label, pij, pjw, word_weight)
 
     pij = calculate_pi_j(train, train_label)
     pjw = calculate_pj_w(train, train_label)
 
     # pjw[:, stop_word_index] = 0
-    test(test_data,test_label,pij, pjw)
+    word_weight = cal_doc_num_of_word(train)
+    test(test_data,test_label,pij, pjw, word_weight)

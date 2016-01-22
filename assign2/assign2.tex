@@ -104,13 +104,30 @@ I have implemented a routine with Naive Bayes for training and testing. And the 
 The error rate of Naive Bayes is $21.89\%$.
 
 \section*{f}
+In this section, I have used $80\%$ of the original training dataset for training,
+and remaining $20\%$ for validation, and test dataset stays the same. Four methods
+have been tested, including:
+\begin{enumerate}
+	\item Naive Bayes 
+	\item Use $\log(1+f) $ for compensating for burstiness
+	\item Remvoe  $400$ stopwords 
+	\item Use inverse document frequency
+\end{enumerate}
+
+The experiment result is listed as following:
+
+\begin{center}
 \begin{tabular}{|l|l|l|}
 	\hline 
 	& Validation error &  Testing error   \\ \hline
 	Naive Bayes	& $16.10\%$ & $21.89\%$  \\ \hline 
 	$\log(1+f)$ & $15.08\%$ & $20.92\%$  \\ \hline
-	Remove $5000$ stopwords & $15.79\%$ & $21.60\%$ \\ \hline 
+	Remove $400$ stopwords & $15.79\%$ & $21.60\%$ \\ \hline 
+	Inverse document frequency & $11.67\%$ & $18.56\%$ \\ \hline
 \end{tabular}
+\end{center}
+
+From the table we can see that, inverse document frequency works best on both validation dataset and test dataset. The final error rate I achieve is $18.56\%$.
 
 
 \section*{Problem 2}
