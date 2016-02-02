@@ -1,10 +1,4 @@
-% c = 10.^(0:10);
-% error_rate = zeros(length(c), 1);
-% for i = 1 : length(c)
-% 	error_rate(i) = valid(valid_data, gauss, pij, c(i));
-% end
-
-load('../../data/MNIST.mat');
+% load('../../data/MNIST.mat');
 
 tr_data = cell(10, 1);
 t_data = cell(10, 1);
@@ -27,13 +21,22 @@ count = sum(pij);
 pij = pij / count;
 
 
-gauss = cell(10, 1);
+new_gauss = cell(10, 1);
 for i = 1 : 10
 	u = mean(tr_data{i}, 1);
 	cov_matrix = cov(tr_data{i});
-	gauss{i}.u = u;
-	gauss{i}.cov_matrix = cov_matrix;
+	new_gauss{i}.u = u;
+	new_gauss{i}.cov_matrix = cov_matrix;
 end
 
-valid(t_data, gauss, pij, 10000);
-% save('../../data/prob5.mat', 'valid_data', 'gauss', 'pij');
+
+num = length(final_abstain);
+error_rate = zeros(num, 1);
+abstain_fraction =  zeros(num, 1);
+for i = 1 : num
+	[error_rate(i), abstain_fraction(i)] = valid3(t_data, new_gauss, pij, 10000, final_abstain(i));
+end
+
+save('../../prob6.mat', 'f', 'error_rate', 'abstain_fraction', 'final_abstain');
+
+

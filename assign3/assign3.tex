@@ -65,8 +65,8 @@ The parameters for the bivariate Gaussian is:
 	\mu &= (\mu_x, \mu_y) \\
 	    &= (2, 2)  \\
 	\sum &= \begin{bmatrix}
-				1  & -0.5 \\
-				-0.5 & 0.5 
+				1  & -0.25 \\
+				-0.25 & 0.5 
 			\end{bmatrix}
 	\end{split}
 \end{align}
@@ -85,21 +85,23 @@ The parameters for the bivariate Gaussian is:
 \end{align}
 
 \section*{Problem 2}
-\subsection*{a}
+\subsection*{a}\label{sec:2a}
 See Figure~\ref{fig:2a}
 \begin{figure}[t]
 	\centering{
 	\includegraphics[width = \textwidth]{./code/2-a.png}
 	}
+	\caption{Samples drawn from multivariate Gaussian in Problem 2-a.}
 	\label{fig:2a}
 \end{figure}
 
-\subsection*{b}
+\subsection*{b}\label{sec:2b}
 See Figure~\ref{fig:2b}
 \begin{figure}[t]
 	\centering{
 		\includegraphics[width = \textwidth]{./code/2-b.png}
 	}
+	\caption{Samples drawn from multivariate Gaussian in Problem 2-b.}
 	\label{fig:2b}
 \end{figure}
 
@@ -111,6 +113,7 @@ See Figure~\ref{fig:3}
 	\centering{
 		\includegraphics[width = \textwidth]{./code/3.png}
 	}
+	\caption{Classification boundary in Problem 3.}
 	\label{fig:3}
 \end{figure}
 
@@ -187,5 +190,23 @@ as well as the ratio between largest probability and second largest probability.
 4. Train a multivariate Gaussian on the whole training dataset $TR$, and evaluate the model on the test dataset with the $treshold$. Calculate the error rate $err$.
 
 \subsection*{c}
+See Figure~\ref{fig:6-error} and \ref{fig:6-fraction}.
+
+\begin{figure}[t]
+	\centering{
+		\includegraphics[width = \textwidth]{./code/6-error.png}
+	}
+	\caption{Error rates of multivariate Gaussian on different abstain fraction $f$}
+	\label{fig:6-error}
+\end{figure}
+
+\begin{figure}[t]
+	\centering{
+		\includegraphics[width = \textwidth]{./code/6-fraction.png}
+	}
+	\caption{Fraction of abstains on the test dataset on different $f$}
+	\label{fig:6-fraction}
+\end{figure}
+
 
 \end{document}
