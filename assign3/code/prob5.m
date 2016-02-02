@@ -34,12 +34,6 @@ end
 
 save('../../data/prob5.mat', 'valid_data', 'gauss', 'pij');
 
-% for i = 1 : 10
-% 	data = valid_data{i};
-% 	for j = 1 : 10
-
-% 	end
-% end
 
 
 

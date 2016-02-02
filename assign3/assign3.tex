@@ -144,7 +144,7 @@ $\mathbf{Output}$: error rate $err$
 \begin{align}
 	\begin{split}
 	\text{class}(x) &= \mathbf{max}_{j} \frac{\pi_j}{(2\pi)^{p/2} |\sum_j + c\mathbf{I}|^{0.5}}
-	\text{exp}(-\frac{1}{2} (x - \mu_j)^T (\sum + c\mathbf{I})  {}_j^{-1} (x - \mu_j))
+	\text{exp}(-\frac{1}{2} (x - \mu_j)^T (\sum{}_j + c\mathbf{I})^{-1} (x - \mu_j))
 	\end{split}
 \end{align}.
 Apply logarithm to the inner term to avoid overflow and underflow.
@@ -158,6 +158,23 @@ The error rate on the MNIST dataset is $4.17\%$.
 
 \section*{Problem 6}
 \subsection*{a}
+Given a sample $x$, let
+$P(Y = i | X = x)$ be the probability that $x$ belongs to class $i$. We make decision with the following equation:
+
+\begin{equation}
+\eta(x) = \left\{ \begin{array}{ll}
+abastain & \mbox{if $\frac{\max \{P(Y=i | X = x ), i = 0,...9 \} }{\text{snd} \{P(Y=i | X = x ), i = 0,...9 \}}  $} \leq threshold \\
+\max_i \{P(Y=i | X = x )\} & \mbox{if $\frac{\max \{P(Y=i | X = x ), i = 0,...9 \} }{\text{snd} \{P(Y=i | X = x ), i = 0,...9 \}} $} > threshold \end{array} 
+\right.
+\end{equation}
+
+where $\text{snd}$ means the second largest value in an array. That is, when the ratio between largest probability and second largest probability is smaller than a ratio, the classifier abstains.
+
+
+\subsection*{b}
+
+
+
 
 
 

@@ -1,12 +1,11 @@
-function [error_rate] = valid(valid_data, gauss, pij, c)
+function [error_rate, abstain] = valid(valid_data, gauss, pij, c, f)
 
-% c = 0.0005;
 error = 0;
 count = 0;
 n = size(gauss{1}.cov_matrix, 1);
+abstain = cell(10, 1);
 for i = 1 : 10
 	gauss{i}.cov_matrix = gauss{i}.cov_matrix + eye(n) * c;
-    % gauss{i}.cov_matrix = gauss{i}.cov_matrix ;
     temp = log(gauss{i}.cov_matrix);
     gauss{i}.det = trace(temp);
     gauss{i}.u = (gauss{i}.u)';
@@ -27,7 +26,17 @@ for i = 1 : 10
 		p = p + log(pij(j)) - log(d);
 		prob = [prob p];
 	end
-	[~, index] = max(prob, [], 2);
+	% [~, index] = max(prob, [], 2);
+	[index, ] = sort(prob, 2);
+	prob_1 = index(:, end);
+	prob_2 = index(:, end-1);
+	temp = prob_2 ./ prob_1;
+
+	percent = prctile(temp, f * 100);
+	index = find(temp > percent);
+	[~, index] = max(prob(index, :), [], 2);
+
+	abstain{i} = percent;
 	count = count + length(index);
 	index = find(index ~= i);
 	error = error + length(index);
@@ -36,3 +45,5 @@ end
 error_rate = error / count;
 
 fprintf('%f\n', error_rate);
+
+
