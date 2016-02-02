@@ -146,15 +146,18 @@ $\mathbf{Output}$: error rate $err$
 	\text{class}(x) &= \mathbf{max}_{j} \frac{\pi_j}{(2\pi)^{p/2} |\sum_j + c\mathbf{I}|^{0.5}}
 	\text{exp}(-\frac{1}{2} (x - \mu_j)^T (\sum + c\mathbf{I})  {}_j^{-1} (x - \mu_j))
 	\end{split}
-\end{align}
+\end{align}.
+Apply logarithm to the inner term to avoid overflow and underflow.
 
 4. Select proper $c$ that minimize the error rate on validation dataset.
 
 5. Use the selected $c$ to train a multivariate Gaussian on full training dataset $TR$, and calculate the error rate $err$ on the test dataset $T$.
 
 \subsection*{b}
+The error rate on the MNIST dataset is $4.17\%$.
 
-
+\section*{Problem 6}
+\subsection*{a}
 
 
 
