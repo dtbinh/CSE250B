@@ -7,6 +7,7 @@
 \usepackage{graphicx}
 \usepackage{xcolor}
  \usepackage{tgtermes}
+\usepackage{listings}
 
  \usepackage[
  pdftitle={Math Assignment},
@@ -127,6 +128,31 @@ The eigenvectors of $\sum + c I$ are $u_1, ..., u_p$.
 The eigenvalues of $\sum^{-1}$ are $\frac{1}{\lambda_1}, ... , \frac{1}{\lambda_p} $.
 
 The eigenvectors of $\sum^{-1}$ are $u_1, ..., u_p$.
+
+\section*{Problem 5}
+\subsection*{a}
+
+$\mathbf{Input}$: training data $TR = (TRX_i, TRY_i)$, and testing data $T = (TX_i, TY_i)$
+
+$\mathbf{Output}$: error rate $err$
+
+1. For each class of digit in the training data, randomly select $20\%$ as validation data $V$, and use the remaining as training data $VTR$.
+
+2. For each class of digit $j$ in $VTR$, calculate the $\pi_j$, which is the frequency of digit $j$. Also, calculate the mean $\mu_j$ and covariance $\sum_{j}$ of samples in class $j$.
+
+3. Determine the label of a sample $x$ with the following equation:
+\begin{align}
+	\begin{split}
+	\text{class}(x) &= \mathbf{max}_{j} \frac{\pi_j}{(2\pi)^{p/2} |\sum_j + c\mathbf{I}|^{0.5}}
+	\text{exp}(-\frac{1}{2} (x - \mu_j)^T (\sum + c\mathbf{I})  {}_j^{-1} (x - \mu_j))
+	\end{split}
+\end{align}
+
+4. Select proper $c$ that minimize the error rate on validation dataset.
+
+5. Use the selected $c$ to train a multivariate Gaussian on full training dataset $TR$, and calculate the error rate $err$ on the test dataset $T$.
+
+\subsection*{b}
 
 
 

@@ -1,6 +1,8 @@
 import numpy as np
 import scipy as sp
 import matplotlib.pyplot as plt
+from MINSTLoader import *
+import scipy.io as sio
 
 def PlotBivGaussian(mean, cov_matrix):
     samples = np.random.multivariate_normal(mean, cov_matrix, 100)
@@ -55,9 +57,32 @@ def PlotBoundary():
     plt.savefig('./3.png', dpi = 100)
     plt.show()
 
+
+def GaussianClassifier():
+    data_dir = '../../data'
+    loader = MNIST(data_dir + '/')
+    print 'Load training...'
+    train_imgs, train_labels = loader.load_training()
+    print 'Load testing...'
+    test_imgs, test_labels = loader.load_testing()
+    sio.savemat('../../data/MNIST.mat', {'train_imgs':train_imgs, 'train_labels':train_labels,
+                                        'test_imgs':test_imgs, 'test_labels':test_labels})
+
+
+    # generate a validation dataset
+
+
+
+
+
+
+
+
+
+
 if __name__ == "__main__":
 
-    prob = "3"
+    prob = "4"
 
     if prob == "2-b":
         mean = np.array([0,0])
@@ -65,4 +90,7 @@ if __name__ == "__main__":
         PlotBivGaussian(mean, cov_matrix)
     elif prob == "3":
         PlotBoundary()
+    elif prob == "4":
+        GaussianClassifier()
+
 
