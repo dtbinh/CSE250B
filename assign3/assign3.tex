@@ -172,10 +172,20 @@ where $\text{snd}$ means the second largest value in an array. That is, when the
 
 
 \subsection*{b}
+$\mathbf{Input}$: training data $TR = (TRX_i, TRY_i)$, and testing data $T = (TX_i, TY_i)$, smoothing factor $c$, abstain fraction $f$
 
+$\mathbf{Output}$: error rate $err$
 
+1. For each class of digit in the training data, randomly select $20\%$ as validation data $V$, and use the remaining as training data $VTR$.
 
+2. For each class of digit $j$ in $VTR$, calculate the $\pi_j$, which is the frequency of digit $j$. Also, calculate the mean $\mu_j$ and covariance $\sum_{j}$ of samples in class $j$.
 
+3. Calculate the probability of the samples in $VTR$ belonging to each class,
+as well as the ratio between largest probability and second largest probability.
+\textbf{Set $treshold$ to the $f*100$-th percentile of the ratio}. 
 
+4. Train a multivariate Gaussian on the whole training dataset $TR$, and evaluate the model on the test dataset with the $treshold$. Calculate the error rate $err$.
+
+\subsection*{c}
 
 \end{document}
