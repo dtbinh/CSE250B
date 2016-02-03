@@ -66,7 +66,7 @@ The parameters for the bivariate Gaussian is:
 	    &= (2, 2)  \\
 	\sum &= \begin{bmatrix}
 				1  & -0.25 \\
-				-0.25 & 0.5 
+				-0.25 & 0.25 
 			\end{bmatrix}
 	\end{split}
 \end{align}
@@ -160,7 +160,8 @@ Apply logarithm to the inner term to avoid overflow and underflow.
 The error rate on the MNIST dataset is $4.17\%$.
 
 \subsection*{c}
-Figure~\ref{fig:wrong} has shown some samples of misclassified test digits. And the corresponding probability are listed in Table~\ref{tab:prob}.
+Figure~\ref{fig:wrong} has shown some samples of misclassified test digits. And the corresponding probability are listed in Table~\ref{tab:prob}. Note that all
+probability are reported in natural logarithm.
 \begin{figure}[h]
 	\centering{
 		\includegraphics[width = 0.15 \textwidth]{./code/wrong/11.png}
@@ -196,8 +197,8 @@ $P(Y = i | X = x)$ be the probability that $x$ belongs to class $i$. We make dec
 
 \begin{equation}
 \eta(x) = \left\{ \begin{array}{ll}
-abstain & \mbox{if $\frac{\max \{P(Y=i | X = x ), i = 0,...9 \} }{\text{snd} \{P(Y=i | X = x ), i = 0,...9 \}}  $} \leq threshold \\
-\max_i \{P(Y=i | X = x )\} & \mbox{if $\frac{\max \{P(Y=i | X = x ), i = 0,...9 \} }{\text{snd} \{P(Y=i | X = x ), i = 0,...9 \}} $} > threshold \end{array} 
+abstain & \mbox{if $\frac{\log(\text{snd} \{P(Y=i | X = x ), i = 0,...9 \} )}{\log(\max \{P(Y=i | X = x ), i = 0,...9 \})}  $} \leq threshold \\
+\max_i \{P(Y=i | X = x )\} & \mbox{if $\frac{\log(\text{snd} \{P(Y=i | X = x ), i = 0,...9 \}) }{\log(\max \{P(Y=i | X = x ), i = 0,...9 \})} $} > threshold \end{array} 
 \right.
 \end{equation}
 
@@ -215,7 +216,7 @@ $\mathbf{Output}$: error rate $err$
 
 3. Calculate the probability of the samples in $VTR$ belonging to each class,
 as well as the ratio between largest probability and second largest probability.
-\textbf{Set $treshold$ to the $f*100$-th percentile of the ratio}. 
+\textbf{Set $treshold$ to the $(f*100)$-th percentile of the ratio}. 
 
 4. Train a multivariate Gaussian on the whole training dataset $TR$, and evaluate the model on the test dataset with the $treshold$. Calculate the error rate $err$.
 
