@@ -34,7 +34,7 @@ num = length(final_abstain);
 error_rate = zeros(num, 1);
 abstain_fraction =  zeros(num, 1);
 for i = 1 : num
-	[error_rate(i), abstain_fraction(i)] = valid3(t_data, new_gauss, pij, 10000, final_abstain(i));
+	[error_rate(i), abstain_fraction(i)] = valid3(t_data, new_gauss, pij, 10000, final_abstain());
 end
 
 save('../../prob6.mat', 'f', 'error_rate', 'abstain_fraction', 'final_abstain');

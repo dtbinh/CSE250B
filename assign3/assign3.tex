@@ -87,7 +87,7 @@ The parameters for the bivariate Gaussian is:
 \section*{Problem 2}
 \subsection*{a}\label{sec:2a}
 See Figure~\ref{fig:2a}
-\begin{figure}[t]
+\begin{figure}[h]
 	\centering{
 	\includegraphics[width = \textwidth]{./code/2-a.png}
 	}
@@ -97,7 +97,7 @@ See Figure~\ref{fig:2a}
 
 \subsection*{b}\label{sec:2b}
 See Figure~\ref{fig:2b}
-\begin{figure}[t]
+\begin{figure}[h]
 	\centering{
 		\includegraphics[width = \textwidth]{./code/2-b.png}
 	}
@@ -109,7 +109,7 @@ See Figure~\ref{fig:2b}
 \section*{Problem 3}
 \subsection*{a}
 See Figure~\ref{fig:3}
-\begin{figure}[t]
+\begin{figure}[h]
 	\centering{
 		\includegraphics[width = \textwidth]{./code/3.png}
 	}
@@ -159,6 +159,36 @@ Apply logarithm to the inner term to avoid overflow and underflow.
 \subsection*{b}
 The error rate on the MNIST dataset is $4.17\%$.
 
+\subsection*{c}
+Figure~\ref{fig:wrong} has shown some samples of misclassified test digits. And the corresponding probability are listed in Table~\ref{tab:prob}.
+\begin{figure}[h]
+	\centering{
+		\includegraphics[width = 0.15 \textwidth]{./code/wrong/11.png}
+		\includegraphics[width = 0.15 \textwidth]{./code/wrong/12.png}
+		\includegraphics[width = 0.15 \textwidth]{./code/wrong/13.png}
+		\includegraphics[width = 0.15 \textwidth]{./code/wrong/14.png}
+		\includegraphics[width = 0.15 \textwidth]{./code/wrong/15.png}
+	}
+	\caption{Samples of misclassified test digits.}
+	\label{fig:wrong}
+\end{figure}
+
+\begin{table}[h]
+\resizebox{\textwidth}{!}{
+\begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|}
+\hline
+logarithm &  0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\ \hline
+Sample $1$ &  $-4.06e+03$ & $-4.27e+03$ & $-4.10e+03$ & $-4.07e+03$ & $-4.17e+03$ & $-4.09e+03$ & $-4.09e+03$ & $-4.23e+03$ & $-4.07e+03$ & $-4.15e+03$ \\ \hline
+Sample $2$ &  $-4.14e+03$ & $-4.52e+03$ & $-4.11e+03$ & $-4.10e+03$ & $-4.27e+03$ & $-4.18e+03$ & $-4.21e+03$ & $-4.34e+03$ & $-4.16e+03$ & $-4.28e+03$ \\ \hline
+Sample $3$ &  $-4.17e+03$ & $-4.03e+03$ & $-4.12e+03$ & $-4.10e+03$ & $-4.07e+03$ & $-4.11e+03$ & $-4.16e+03$ & $-4.04e+03$ & $-4.06e+03$ & $-4.05e+03$ \\ \hline
+Sample $4$ &  $-4.14e+03$ & $-4.08e+03$ & $-4.09e+03$ & $-4.08e+03$ & $-4.08e+03$ & $-4.12e+03$ & $-4.21e+03$ & $-4.03e+03$ & $-4.05e+03$ & $-4.04e+03$ \\ \hline
+Sample $5$ &  $-4.15e+03$ & $-4.30e+03$ & $-4.15e+03$ & $-4.09e+03$ & $-4.17e+03$ & $-4.07e+03$ & $-4.26e+03$ & $-4.23e+03$ & $-4.06e+03$ & $-4.15e+03$ \\ \hline
+\end{tabular}
+}
+\caption{Probability of wrongly classified samples belonging to each class.}
+\label{tab:prob}
+\end{table}
+
 \section*{Problem 6}
 \subsection*{a}
 Given a sample $x$, let
@@ -166,7 +196,7 @@ $P(Y = i | X = x)$ be the probability that $x$ belongs to class $i$. We make dec
 
 \begin{equation}
 \eta(x) = \left\{ \begin{array}{ll}
-abastain & \mbox{if $\frac{\max \{P(Y=i | X = x ), i = 0,...9 \} }{\text{snd} \{P(Y=i | X = x ), i = 0,...9 \}}  $} \leq threshold \\
+abstain & \mbox{if $\frac{\max \{P(Y=i | X = x ), i = 0,...9 \} }{\text{snd} \{P(Y=i | X = x ), i = 0,...9 \}}  $} \leq threshold \\
 \max_i \{P(Y=i | X = x )\} & \mbox{if $\frac{\max \{P(Y=i | X = x ), i = 0,...9 \} }{\text{snd} \{P(Y=i | X = x ), i = 0,...9 \}} $} > threshold \end{array} 
 \right.
 \end{equation}
@@ -192,7 +222,7 @@ as well as the ratio between largest probability and second largest probability.
 \subsection*{c}
 See Figure~\ref{fig:6-error} and \ref{fig:6-fraction}.
 
-\begin{figure}[t]
+\begin{figure}[h]
 	\centering{
 		\includegraphics[width = \textwidth]{./code/6-error.png}
 	}
@@ -200,7 +230,7 @@ See Figure~\ref{fig:6-error} and \ref{fig:6-fraction}.
 	\label{fig:6-error}
 \end{figure}
 
-\begin{figure}[t]
+\begin{figure}[h]
 	\centering{
 		\includegraphics[width = \textwidth]{./code/6-fraction.png}
 	}
