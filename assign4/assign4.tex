@@ -1,0 +1,110 @@
+%%% Template originaly created by Karol Kozioł (mail@karol-koziol.net) and modified for ShareLaTeX use
+
+\documentclass[a4paper,11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{xcolor}
+ \usepackage{tgtermes}
+\usepackage{listings}
+
+ \usepackage[
+ pdftitle={Math Assignment},
+ pdfauthor={Joe Doe, Some University},
+ colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue,bookmarks=true,
+ bookmarksopenlevel=2]{hyperref}
+\usepackage{amsmath,amssymb,amsthm,textcomp}
+\usepackage{enumerate}
+\usepackage{multicol}
+\usepackage{tikz}
+
+\usepackage{geometry}
+\geometry{total={210mm,297mm},
+left=25mm,right=25mm,%
+bindingoffset=0mm, top=20mm,bottom=20mm}
+
+
+\linespread{1.3}
+
+\newcommand{\linia}{\rule{\linewidth}{0.5pt}}
+
+% custom theorems if needed
+\newtheoremstyle{mytheor}
+    {1ex}{1ex}{\normalfont}{0pt}{\scshape}{.}{1ex}
+    {{\thmname{#1 }}{\thmnumber{#2}}{\thmnote{ (#3)}}}
+
+\theoremstyle{mytheor}
+\newtheorem{defi}{Definition}
+\usepackage[ruled, vlined, linesnumbered,lined,boxed,commentsnumbered]{algorithm2e}
+\usepackage[parfill]{parskip}
+\makeatletter
+
+\setlength\parindent{0pt}
+% custom footers and headers
+\usepackage{fancyhdr,lastpage}
+
+
+\newcommand{\myequ}[1]{\begin{align}\begin{split} #1 \end{split}\end{align}}
+
+
+\begin{document}
+
+\title{CSE 250B: Machine Learning}
+
+\author{Sai Bi}
+
+\date{\today}
+
+\maketitle
+
+\section*{Problem 1}
+\subsection*{a}
+For any $w_1$ and $w_2$, we have
+
+\begin{align}
+	\begin{split}
+		L(w_1) + L(w_2) &= \sum_{i=1}^{n} ((y^{(i)} - w_1 \cdot x^{(i)})^2 + (y^{(i)} - w_2 \cdot x^{(i)})^2) \\
+						& \geq  \sum_{i=1}^{N}\frac{(y^{(i)} -  w_1 \cdot x^{(i)} + y^{(i)} -  w_2 \cdot x^{(i)} ) }{2} \\
+					& = \sum_{i=1}^{N} (y^{(i)} - \frac{w_1 + w_2}{2} x_{(i)}) \\
+					& = L(\frac{w_1+w_2}{2})
+	\end{split}
+\end{align}
+
+Hence $L(w)$ is a convex function.
+
+\subsection*{b}
+Let $X$  be the data matrix where each row is a data point, and $Y$ be a column vector. Therefore we can rewrite $L(w)$
+as $L(w) = (Y - Xw)^2$. The derivative of $L(w)$ is:
+\myequ{
+	L'(w) &= 2X^T Xw 
+}
+Therefore the update rule should be 
+\myequ{
+	w_{t+1} &= w_t - 2\eta_{t} X^T Xw 
+}
+
+\subsection*{c}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
