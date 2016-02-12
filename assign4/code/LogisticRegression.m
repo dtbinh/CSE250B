@@ -24,7 +24,7 @@ for iter = 1 : m
 	grad_w = -1.0 * sum(coeff .* x, 1)';
 
 	t = BacktrackLineSearch(curr_w, x, y, grad_w, alpha, beta);
-    % t = 0.01;
+    % t = 0.001;
 	new_w = curr_w - t * grad_w;
 	curr_w = new_w;
     
