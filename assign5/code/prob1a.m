@@ -81,21 +81,6 @@ idx(pred >= 0) = 1;
 idx(pred < 0) = 2;
 
 
-
-% for i = 1 : xy_num
-% 	pred = 0;
-% 	curr_data = xy(i, :);
-% 	for j = 1 : l
-% 		pred = pred + c{j} * sign(sum(curr_data .* w{j}));
-% 	end
-
-% 	if sign(pred) > 0
-% 		idx(i) = 1;
-% 	else
-% 		idx(i) = 2;
-% 	end
-% end
-
 decisionmap = reshape(idx, image_size);
 
 
@@ -108,13 +93,11 @@ set(gca,'ydir','normal');
 cmap = [1 0.8 0.8; 0.95 1 0.95]
 colormap(cmap);
 
-% plot(x_pos(:, 1), x_pos(:, 2), 'r.');
-% plot(x_neg(:, 1), x_neg(:, 2), 'b*');
 
 scatter(x_pos(:, 1), x_pos(:, 2), 'filled', 'MarkerFaceColor', 'red', 'MarkerEdgeColor', 'red');
 scatter(x_neg(:, 1), x_neg(:, 2), 'filled', 'MarkerFaceColor', 'green', 'MarkerEdgeColor', 'green');
 
-legend('+1', '-1', 'Location','NorthOutside','Orientation', 'horizontal');
-
+legend('+1', '-1');
+title('Problem 1-a: T = 10');
 
 saveas(figure1, '1a.png');

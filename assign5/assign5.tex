@@ -8,7 +8,7 @@
 \usepackage{xcolor}
  \usepackage{tgtermes}
 \usepackage{listings}
-
+\usepackage{minted}
  \usepackage[
  pdftitle={Math Assignment},
  pdfauthor={Joe Doe, Some University},
@@ -59,19 +59,114 @@ bindingoffset=0mm, top=20mm,bottom=20mm}
 \maketitle
 
 \section*{Problem 1}
+\subsection*{a}
+See Figure~\ref{fig:1a}. The decision boundary is not linear.
+\begin{figure}[b]
+	\centering{
+		\includegraphics[width = 0.9\textwidth]{./code/1a.png}
+	}
+	\caption{Problem 1-a, $T = 10$}
+	\label{fig:1a}
+\end{figure}
+
+\subsection*{b}
+See Figure~\ref{fig:1b}.
+
+\begin{minted}[frame=lines, framesep=2mm,]
+{cpp}
+Input: T, x, y, L
+l = 1, c(l) = 0
+w(1) = 0
+Repeat T times
+	Randomly permute the data points
+	for i = 1 to n:
+		if (x_i, y_i) is misclassified by w_l:
+			w(l+1) = w(l) + y_i * x_i
+			if l + 1 <= L
+				store w(l+1)
+			c(l+1) = 1
+			l = l + 1
+				
+		else
+			c(l) = c(l) + 1
+			if l > L & c(l) is larger than the min[c(1...l-1)]
+				// a MIN-Heap may be used here for efficiency
+				delete the w with smallest c from storage
+				store w(l)
+return all w that is in storage
+\end{minted}
+
+\begin{figure}[b]
+	\centering{
+		\includegraphics[width = 0.45\textwidth]{./code/1b-full.png}
+		\includegraphics[width = 0.45\textwidth]{./code/1b-select.png}
+	}
+	\caption{Problem 1-b. Left: use all $869$ $w$ got in vote perceptron for prediction. 
+		Right: use only $L = 50$ for prediction.}
+	\label{fig:1b}
+\end{figure}
+
+\subsection*{c}
+See Figure~\ref{fig:1c}.
+\begin{minted}[frame=lines, framesep=2mm,]
+{cpp}
+Input: T, x, y
+c = 0
+w = 0
+curr_w = 0
+flag = false
+Repeat T times
+	Randomly permute the data points
+	for i = 1 to n:
+		if (x_i, y_i) is misclassified by w_l:
+			w = w + curr_w * c
+			curr_w = curr_w + y_i * x_i
+			c = 1
+			flag = false
+		else
+			c = c + 1
+			flag = true
+if flag = true
+	w = w + curr_w * c
+
+return w
+\end{minted}
 
 
+\begin{figure}[b]
+	\centering{
+		\includegraphics[width = 0.9\textwidth]{./code/1c.png}
+	}
+	\caption{Problem 1-c, $T = 10$}
+	\label{fig:1c}
+\end{figure}
+
+\section*{Problem 2}
 
 
+\begin{figure}[b]
+	\centering{
+		\includegraphics[width = 0.9\textwidth]{./code/2a-data-1.png}
+	}
+	\caption{Problem 2. Decision boundary of data1.txt. $T = 1000$.}
+	\label{fig:2a-1}
+\end{figure}
 
+\begin{figure}[b]
+	\centering{
+		\includegraphics[width = 0.9\textwidth]{./code/2a-data-1.png}
+	}
+	\caption{Problem 2. Decision boundary of data1.txt with quadratic kernel. $T = 10000$.}
+	\label{fig:2a-1}
+\end{figure}
 
-
-
-
-
-
-
-
+\begin{figure}[b]
+	\centering{
+		\includegraphics[width = 0.9\textwidth]{./code/2a-data-2.png}
+	}
+	\caption{Problem 2. Decision boundary of data2.txt with quadratic kernel. $T = 10000$.}
+	\label{fig:2a-1}
+\end{figure}
 
 
 

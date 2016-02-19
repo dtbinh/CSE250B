@@ -1,14 +1,7 @@
-function [] = prob1c(x_pos, y_pos, x_neg, y_neg)
+function [] = prob2b(x_pos, y_pos, x_neg, y_neg)
 
-% add an extra feature
 x_pos(:, 3) = 1;
 x_neg(:, 3) = 1;
-
-l = 1;
-c = {};
-c{1} = 0;
-w = {};
-
 
 all_x = [x_pos; x_neg];
 all_y = [y_pos; y_neg]; 
@@ -16,10 +9,11 @@ all_y = [y_pos; y_neg];
 data_num = size(all_x, 1);
 data_dim = size(all_x, 2);
 
-w{1} = zeros(1, data_dim);
-
+w = zeros(1, data_num);
 
 T = 10;
+
+sigma = 1;
 
 for i = 1 : T
 	% random permute data points
@@ -28,23 +22,25 @@ for i = 1 : T
 	y = all_y(index, :);
 
 	for j = 1 : data_num
-		temp = sum(x(j, :) .* w{l});
+		temp = all_x - repmat(x(j, :), data_num, 1);
+		temp = sum(temp.^2, 2);	
+		temp = temp / (2 * sigma * sigma);
+		temp = exp(-1.0 * temp);
+		temp = w * temp;
+
+
 		if sign(temp) ~= y(j)
-			w{l+1} = w{l} + y(j) * x(j, :);
-			c{l+1} = 1; l = l + 1;
-		else
-			c{l} = c{l} + 1;
+			w(index(j)) = w(index(j)) + y(j);		
 		end
 	end
-
 end
 
 
-% find range of first and second feature of x
-x_1_min = min(all_x(:, 1)) - 2;
+
+x_1_min = min(all_x(:, 1)) - 1;
 x_1_max = max(all_x(:, 1)) + 2;
 
-x_2_min = min(all_x(:, 2)) - 2;
+x_2_min = min(all_x(:, 2)) - 1;
 x_2_max = max(all_x(:, 2)) + 2;
 
 x_range = [x_1_min x_1_max];
@@ -64,30 +60,24 @@ image_size = size(x);
 idx = zeros(xy_num, 1);
 
 
-final_w = zeros(data_dim, l); 
-final_c = zeros(1, l);
-for i = 1 : l	
-	final_w(:,i) = w{i};
-	final_c(i) = c{i};
-end
 
-final_c = repmat(final_c, data_dim, 1);
+all_x = all_x';
+pred = repmat(xy, 1, data_num) - repmat(all_x(:)', xy_num, 1); 
+pred = pred .^ 2.0;
+pred = pred';
+pred = reshape(pred, 3, []);
+pred = sum(pred, 1);
+pred = -1.0 * pred / (2 * sigma * sigma);
+pred = exp(pred);
 
-average_w = final_c .* final_w;
-average_w = sum(average_w, 2);
-
-pred = xy * average_w;
-
-pred = sign(pred);
-
-
+pred = reshape(pred, data_num, []);
+pred = w * pred;
 
 
 
 
 idx(pred >= 0) = 1;
 idx(pred < 0) = 2;
-
 
 
 decisionmap = reshape(idx, image_size);
@@ -99,14 +89,18 @@ hold on;
 
 set(gca,'ydir','normal');
 
-cmap = [1 0.8 0.8; 0.95 1 0.95]
+cmap = [1 0.8 0.8; 0.95 1 0.95];
 colormap(cmap);
-
 
 scatter(x_pos(:, 1), x_pos(:, 2), 'filled', 'MarkerFaceColor', 'red', 'MarkerEdgeColor', 'red');
 scatter(x_neg(:, 1), x_neg(:, 2), 'filled', 'MarkerFaceColor', 'green', 'MarkerEdgeColor', 'green');
 
-legend('+1', '-1');
+legend('+1', '-1', 'Location','NorthOutside','Orientation', 'horizontal');
 
-title('Problem 1-c: T = 10');
-saveas(figure1, '1c.png');
+saveas(figure1, '2a-data-1.png');
+
+
+
+
+
+

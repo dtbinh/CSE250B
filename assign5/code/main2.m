@@ -1,4 +1,4 @@
-data_path = '../../data/data1.txt';
+data_path = '../../data/data2.txt';
 
 data = dlmread(data_path, ' '); data = data(:, 1:3);
 
@@ -14,5 +14,3 @@ y_neg = data(index, 3);
 % prob1b(x_pos, y_pos, x_neg, y_neg);
 % prob1c(x_pos, y_pos, x_neg, y_neg);
 prob2a(x_pos, y_pos, x_neg, y_neg);
-% prob2b(x_pos, y_pos, x_neg, y_neg);
-

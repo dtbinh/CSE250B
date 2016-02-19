@@ -101,8 +101,9 @@ colormap(cmap);
 scatter(x_pos(:, 1), x_pos(:, 2), 'filled', 'MarkerFaceColor', 'red', 'MarkerEdgeColor', 'red');
 scatter(x_neg(:, 1), x_neg(:, 2), 'filled', 'MarkerFaceColor', 'green', 'MarkerEdgeColor', 'green');
 
-legend('+1', '-1', 'Location','NorthOutside','Orientation', 'horizontal');
+legend('+1', '-1');
 
+title('Problem 1-b: T = 50, use all w');
 saveas(figure1, '1b-full.png');
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -110,7 +111,7 @@ saveas(figure1, '1b-full.png');
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % downsample w and c
-L = 100;
+L = 50;
 [~, index] = sort(final_c, 'descend');
 index = index(1:L);
 
@@ -142,5 +143,6 @@ colormap(cmap);
 scatter(x_pos(:, 1), x_pos(:, 2), 'filled', 'MarkerFaceColor', 'red', 'MarkerEdgeColor', 'red');
 scatter(x_neg(:, 1), x_neg(:, 2), 'filled', 'MarkerFaceColor', 'green', 'MarkerEdgeColor', 'green');
 
-legend('+1', '-1', 'Location','NorthOutside','Orientation', 'horizontal');
-saveas(figure1, '1b-select.png');
+legend('+1', '-1');
+title('Problem 1-b: T = 50, L = 50');
+saveas(figure2, '1b-select.png');
