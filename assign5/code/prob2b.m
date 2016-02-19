@@ -11,9 +11,9 @@ data_dim = size(all_x, 2);
 
 w = zeros(1, data_num);
 
-T = 10;
+T = 100;
 
-sigma = 1;
+sigma = 2;
 
 for i = 1 : T
 	% random permute data points
@@ -95,9 +95,11 @@ colormap(cmap);
 scatter(x_pos(:, 1), x_pos(:, 2), 'filled', 'MarkerFaceColor', 'red', 'MarkerEdgeColor', 'red');
 scatter(x_neg(:, 1), x_neg(:, 2), 'filled', 'MarkerFaceColor', 'green', 'MarkerEdgeColor', 'green');
 
-legend('+1', '-1', 'Location','NorthOutside','Orientation', 'horizontal');
+legend('+1', '-1');
 
-saveas(figure1, '2a-data-1.png');
+title(['Decision boundary of data1.txt with RBF, T = ' num2str(T) ', sigma = ' num2str(sigma)]);
+
+saveas(figure1, ['2-rbf-data-1-sigma-' num2str(sigma) '.png']);
 
 
 

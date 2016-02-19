@@ -75,25 +75,31 @@ See Figure~\ref{fig:1b}.
 \begin{minted}[frame=lines, framesep=2mm,]
 {cpp}
 Input: T, x, y, L
-l = 1, c(l) = 0
-w(1) = 0
+l = 1, c = 0
+w = 0
+heap = make_min_heap()
+flag = false
 Repeat T times
 	Randomly permute the data points
 	for i = 1 to n:
-		if (x_i, y_i) is misclassified by w_l:
-			w(l+1) = w(l) + y_i * x_i
-			if l + 1 <= L
-				store w(l+1)
-			c(l+1) = 1
-			l = l + 1
+		if (x_i, y_i) is misclassified by w:
+			insert (c, w) into heap
+			if heap.size() > L
+				heap.pop_heap()
 				
+			w = w + y_i * x_i
+			c = 1
+			flag = false
 		else
-			c(l) = c(l) + 1
-			if l > L & c(l) is larger than the min[c(1...l-1)]
-				// a MIN-Heap may be used here for efficiency
-				delete the w with smallest c from storage
-				store w(l)
-return all w that is in storage
+			c = c + 1
+			flag = true
+
+if flag == true
+	insert (c, w) into heap
+	if heap.size() > L
+		heap.pop_heap() 
+
+return all (w, c) that is in the heap
 \end{minted}
 
 \begin{figure}[b]
@@ -126,7 +132,7 @@ Repeat T times
 		else
 			c = c + 1
 			flag = true
-if flag = true
+if flag == true
 	w = w + curr_w * c
 
 return w
@@ -142,22 +148,14 @@ return w
 \end{figure}
 
 \section*{Problem 2}
-
-
-\begin{figure}[b]
-	\centering{
-		\includegraphics[width = 0.9\textwidth]{./code/2a-data-1.png}
-	}
-	\caption{Problem 2. Decision boundary of data1.txt. $T = 1000$.}
-	\label{fig:2a-1}
-\end{figure}
+See Figure~\ref{fig:2a-2}, \ref{fig:2a-3}, \ref{fig:2a-4}, \ref{fig:2a-5}.
 
 \begin{figure}[b]
 	\centering{
 		\includegraphics[width = 0.9\textwidth]{./code/2a-data-1.png}
 	}
 	\caption{Problem 2. Decision boundary of data1.txt with quadratic kernel. $T = 10000$.}
-	\label{fig:2a-1}
+	\label{fig:2a-2}
 \end{figure}
 
 \begin{figure}[b]
@@ -165,8 +163,34 @@ return w
 		\includegraphics[width = 0.9\textwidth]{./code/2a-data-2.png}
 	}
 	\caption{Problem 2. Decision boundary of data2.txt with quadratic kernel. $T = 10000$.}
-	\label{fig:2a-1}
+	\label{fig:2a-3}
 \end{figure}
+
+\begin{figure}[b]
+	\centering{
+		\includegraphics[width = 0.45\textwidth]{./code/2-rbf-data-1-sigma-0_5.png}
+		\includegraphics[width = 0.45\textwidth]{./code/2-rbf-data-1-sigma-1.png}
+		\includegraphics[width = 0.45\textwidth]{./code/2-rbf-data-1-sigma-1_5.png}
+		\includegraphics[width = 0.45\textwidth]{./code/2-rbf-data-1-sigma-2.png}
+	}
+	\caption{Problem 2. Decision boundary of data1.txt with RBF kernel.}
+	\label{fig:2a-4}
+\end{figure}
+
+
+\begin{figure}[b]
+	\centering{
+		\includegraphics[width = 0.45\textwidth]{./code/2-rbf-data-2-sigma-0_5.png}
+		\includegraphics[width = 0.45\textwidth]{./code/2-rbf-data-2-sigma-1.png}
+		\includegraphics[width = 0.45\textwidth]{./code/2-rbf-data-2-sigma-1_5.png}
+		\includegraphics[width = 0.45\textwidth]{./code/2-rbf-data-2-sigma-2.png}
+	}
+	\caption{Problem 2. Decision boundary of data2.txt with RBF kernel.}
+	\label{fig:2a-5}
+\end{figure}
+
+
+
 
 
 
