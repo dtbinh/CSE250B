@@ -10,5 +10,7 @@ index = find(data(:, 3) == -1);
 x_neg = data(index, 1:2);
 y_neg = data(index, 3);
 
-prob1a(x_pos, y_pos, x_neg, y_neg);
-
+% prob1a(x_pos, y_pos, x_neg, y_neg);
+% prob1b(x_pos, y_pos, x_neg, y_neg);
+% prob1c(x_pos, y_pos, x_neg, y_neg);
+prob2a(x_pos, y_pos, x_neg, y_neg);

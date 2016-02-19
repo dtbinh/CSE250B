@@ -1,4 +1,4 @@
-function [] = prob1a(x_pos, y_pos, x_neg, y_neg)
+function [] = prob1c(x_pos, y_pos, x_neg, y_neg)
 
 % add an extra feature
 x_pos(:, 3) = 1;
@@ -71,30 +71,24 @@ for i = 1 : l
 	final_c(i) = c{i};
 end
 
-pred = xy * final_w;
+final_c = repmat(final_c, data_dim, 1);
+
+average_w = final_c .* final_w;
+average_w = sum(average_w, 2);
+
+pred = xy * average_w;
+
 pred = sign(pred);
-pred = repmat(final_c, xy_num, 1) .* pred;
-pred = sum(pred, 2);
-pred = sign(pred);
+
+
+
+
+
 
 idx(pred >= 0) = 1;
 idx(pred < 0) = 2;
 
 
-
-% for i = 1 : xy_num
-% 	pred = 0;
-% 	curr_data = xy(i, :);
-% 	for j = 1 : l
-% 		pred = pred + c{j} * sign(sum(curr_data .* w{j}));
-% 	end
-
-% 	if sign(pred) > 0
-% 		idx(i) = 1;
-% 	else
-% 		idx(i) = 2;
-% 	end
-% end
 
 decisionmap = reshape(idx, image_size);
 
@@ -108,8 +102,6 @@ set(gca,'ydir','normal');
 cmap = [1 0.8 0.8; 0.95 1 0.95]
 colormap(cmap);
 
-% plot(x_pos(:, 1), x_pos(:, 2), 'r.');
-% plot(x_neg(:, 1), x_neg(:, 2), 'b*');
 
 scatter(x_pos(:, 1), x_pos(:, 2), 'filled', 'MarkerFaceColor', 'red', 'MarkerEdgeColor', 'red');
 scatter(x_neg(:, 1), x_neg(:, 2), 'filled', 'MarkerFaceColor', 'green', 'MarkerEdgeColor', 'green');
@@ -117,4 +109,4 @@ scatter(x_neg(:, 1), x_neg(:, 2), 'filled', 'MarkerFaceColor', 'green', 'MarkerE
 legend('+1', '-1', 'Location','NorthOutside','Orientation', 'horizontal');
 
 
-saveas(figure1, '1a.png');
+saveas(figure1, '1c.png');

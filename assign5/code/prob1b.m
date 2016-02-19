@@ -1,4 +1,4 @@
-function [] = prob1a(x_pos, y_pos, x_neg, y_neg)
+function [] = prob1b(x_pos, y_pos, x_neg, y_neg)
 
 % add an extra feature
 x_pos(:, 3) = 1;
@@ -19,7 +19,7 @@ data_dim = size(all_x, 2);
 w{1} = zeros(1, data_dim);
 
 
-T = 10;
+T = 50;
 
 for i = 1 : T
 	% random permute data points
@@ -50,7 +50,7 @@ x_2_max = max(all_x(:, 2)) + 2;
 x_range = [x_1_min x_1_max];
 y_range = [x_2_min x_2_max];
 
-inc = 0.01;
+inc = 0.1;
 
 [x, y] = meshgrid(x_1_min:inc:x_1_max, x_2_min:inc:x_2_max);
 
@@ -71,6 +71,11 @@ for i = 1 : l
 	final_c(i) = c{i};
 end
 
+
+
+
+fprintf('Number of w: %d\n', l);
+
 pred = xy * final_w;
 pred = sign(pred);
 pred = repmat(final_c, xy_num, 1) .* pred;
@@ -80,21 +85,6 @@ pred = sign(pred);
 idx(pred >= 0) = 1;
 idx(pred < 0) = 2;
 
-
-
-% for i = 1 : xy_num
-% 	pred = 0;
-% 	curr_data = xy(i, :);
-% 	for j = 1 : l
-% 		pred = pred + c{j} * sign(sum(curr_data .* w{j}));
-% 	end
-
-% 	if sign(pred) > 0
-% 		idx(i) = 1;
-% 	else
-% 		idx(i) = 2;
-% 	end
-% end
 
 decisionmap = reshape(idx, image_size);
 
@@ -108,13 +98,49 @@ set(gca,'ydir','normal');
 cmap = [1 0.8 0.8; 0.95 1 0.95]
 colormap(cmap);
 
-% plot(x_pos(:, 1), x_pos(:, 2), 'r.');
-% plot(x_neg(:, 1), x_neg(:, 2), 'b*');
-
 scatter(x_pos(:, 1), x_pos(:, 2), 'filled', 'MarkerFaceColor', 'red', 'MarkerEdgeColor', 'red');
 scatter(x_neg(:, 1), x_neg(:, 2), 'filled', 'MarkerFaceColor', 'green', 'MarkerEdgeColor', 'green');
 
 legend('+1', '-1', 'Location','NorthOutside','Orientation', 'horizontal');
 
+saveas(figure1, '1b-full.png');
 
-saveas(figure1, '1a.png');
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% downsample w and c
+L = 100;
+[~, index] = sort(final_c, 'descend');
+index = index(1:L);
+
+final_w = final_w(:, index);
+final_c = final_c(:, index);
+
+pred = xy * final_w;
+pred = sign(pred);
+pred = repmat(final_c, xy_num, 1) .* pred;
+pred = sum(pred, 2);
+pred = sign(pred);
+
+idx(pred >= 0) = 1;
+idx(pred < 0) = 2;
+
+
+decisionmap = reshape(idx, image_size);
+
+
+figure2 = figure;
+imagesc(x_range, y_range, decisionmap);
+hold on;
+
+set(gca,'ydir','normal');
+
+cmap = [1 0.8 0.8; 0.95 1 0.95]
+colormap(cmap);
+
+scatter(x_pos(:, 1), x_pos(:, 2), 'filled', 'MarkerFaceColor', 'red', 'MarkerEdgeColor', 'red');
+scatter(x_neg(:, 1), x_neg(:, 2), 'filled', 'MarkerFaceColor', 'green', 'MarkerEdgeColor', 'green');
+
+legend('+1', '-1', 'Location','NorthOutside','Orientation', 'horizontal');
+saveas(figure1, '1b-select.png');

@@ -131,3 +131,4 @@ data
 *.pyc
 prob6.mat
 assign3/code/wrong/
+*.png
