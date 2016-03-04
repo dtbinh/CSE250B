@@ -80,7 +80,7 @@ The clustering result is listed as following:
 And the clustering results make sense.
 
 \subsection*{c}
-See Figure~\ref{fig:1c}.
+See Figure~\ref{fig:1c}. The hierarchical cluster result is sensible.
 \begin{figure}
     \centering{
          \includegraphics[width=0.9\textwidth]{./code/1c.png}  
@@ -104,7 +104,7 @@ That is, the optimal $\mu$ is simply the mean of the points $C$.
 Suppose we have three points $(-1, 0), (1, 0), (6, 0)$, the optimal center location would be $(1,0)$. But the mean of
 points is $(2, 0)$. Therefore the optimal center $\mu$ is not the mean of points in the $L_1$ case.
 
-The optimal center in the $(R^1, L_1)$ case should be the median of all points.
+The optimal center in the $(\mathbb{R}^1, L_1)$ case should be the median of all points.
 
 \section*{Problem 3}
 \subsection*{a}
@@ -115,7 +115,20 @@ Let the initial centers be $-6, 8 , 10$. In this case the final clustering
 centers would be $-6, 8, 10$, which is suboptimal.
 
 \section*{Problem 4}
-See Figure~\ref{fig:4}.
+See Figure~\ref{fig:4} (Enlarge the figure to see details). The embedding
+is sensible to me.
+
+To do PCA, let $X$ be the data matrix, where each row is a 
+data point. First calculate the covariance matrix $\sum$ of $X$, and then get its eigenvalues $\lambda_1 \geq \lambda_2 \geq ... \geq \lambda_p$ and corresponding 
+eigenvectors $u_1, u_2,...,u_p$. Select two eigenvectors that correspond to the two largest
+eigenvalues, that is $u_1, u_2$. Then for a data point $x$, it can be projected to 
+$\mathbb{R}^2$ in the following way:
+\begin{align}
+    \begin{split}
+    x & \mapsto (u_1 \cdot x, u_2 \cdot x)^T
+    \end{split}
+\end{align}
+
 \begin{figure}
     \centering{
         \includegraphics[width=0.9\textwidth]{./code/4.png}  
@@ -123,5 +136,43 @@ See Figure~\ref{fig:4}.
     \caption{Problem 4: data points after PCA.}
     \label{fig:4}
 \end{figure}
+
+\section*{Problem 5}
+
+\subsection*{a}
+\begin{itemize}
+    \item The dimensions of $U$ is $p \times 2$.
+     \item The dimensions of $U^T$ is $2 \times p$.
+     \item The dimensions of $UU^T$ is $p \times p$.
+     \item The dimensions of $u_1 u_1^T$ is $p \times p$.
+\end{itemize}
+
+\subsection*{b}
+The first and the third projections are the same. And the projection is
+$\mathbb{R}^p \mapsto \mathbb{R}^{2}$.
+
+The second and the fourth projections are the same. And the projection is 
+$\mathbb{R}^p \mapsto \mathbb{R}^p$.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \end{document}
