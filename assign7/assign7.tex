@@ -56,6 +56,87 @@ bindingoffset=0mm, top=20mm,bottom=20mm}
 
 \maketitle
 
+\section*{Problem 1}
+\subsection*{a}
+$Mv_i = \sigma_i u_i$
+
+\subsection*{b}
+$M^Tu_i = \sigma_i v_i$
+
+\subsection*{c}
+$M^T Mv_i = \sigma_i M^T u_i = \sigma_i^2 v_i$
+
+$MM^Tu_i = \sigma_i M v_i = \sigma_i^2 u_i$ 
+
+\subsection*{d}
+The eigenvalues of $MM^T$ is $\sigma_1^2, \sigma_2^2, ..., \sigma_p^2$, and the corresponding 
+eigenvectors are $u_1, u_2, ..., u_p$.
+
+\subsection*{e}
+$MM^T$ and $M^TM$ has the same set of eigenvalues, but different eigenvectors.
+
+\subsection*{f}
+There are exactly $k$ non-zero $\sigma_i$.
+
+\section*{Problem 2}
+\subsection*{a}
+The best rank-$1$ approximation is:
+\begin{align}
+\begin{split}
+\begin{bmatrix}
+    1.5745   & 2.0801  &  2.5857 \\
+    3.7594   & 4.9664  &  6.1735 \\
+\end{bmatrix}
+\end{split}
+\end{align}
+
+\subsection*{b}
+The decomposition is not unique.
+Let $A$ be the rank-$1$ matrix as following:
+\begin{align}
+\begin{split}
+A = \begin{bmatrix}
+1  &0  &0 \\
+2  &0  &0 \\
+3  &0  &0 \\
+\end{bmatrix}
+\end{split}
+\end{align}
+then we have 
+\begin{align}
+\begin{split}
+a = \begin{bmatrix}
+1  \\
+2  \\
+3  \\
+\end{bmatrix}
+\hspace{0.5cm}
+b = \begin{bmatrix}
+1  \\
+0  \\
+0  \\
+\end{bmatrix}
+\hspace{0.5cm}
+u = \begin{bmatrix}
+2  \\
+4  \\
+6  \\
+\end{bmatrix}
+\hspace{0.5cm}
+v = \begin{bmatrix}
+0.5  \\
+0  \\
+0  \\
+\end{bmatrix}
+\end{split}
+\end{align}
+
+satisfying $uv^T = ab^T = A$. Therefore, the decomposition is not unique.
+
+\subsection*{c}
+$\widehat{M} = \sum\limits_{i=1}^{k}\sigma_i u_i v_i^T$
+
+
 \section*{Problem 4}
 \subsection*{a}
 The Gram matrix of the dataset is:
