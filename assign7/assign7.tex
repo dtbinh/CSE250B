@@ -145,10 +145,10 @@ The Gram matrix of the dataset is:
 \begin{align}
     \begin{split}
         \begin{bmatrix}
-           0.5000  &  0.0000 &   0.0000   &-0.5000 \\
-           0.0000  &  0.5000 &  -0.5000 &   0.0000 \\
-           0.0000 & -0.5000  &  0.5000   & 0.0000 \\
-           -0.5000 &   0.0000  &  0.0000 &   0.5000 \\
+        1   &  1 &    1   &  1 \\
+        1   &  2   &  1    & 2 \\
+        1    & 1    & 2    & 2 \\
+        1   &  2   &  2   &  3 \\
         \end{bmatrix}
     \end{split}
 \end{align}
@@ -164,11 +164,11 @@ There are other sets of four points with exactly the same Gram matrix, for examp
 \subsection*{b}
 See Figure~\ref{fig:4b0}. The plot doesn't look right since right and left, top and bottom are reversed.
 
-To fix the problem, just multiply the $x,y$ coordinates of each point by $-1$. After the problem is fixed,
+To fix the problem, just multiply the $x-y$ coordinates of each point by $-1$. After the problem is fixed,
 the results is Figure~\ref{fig:4b1}.
 
 \subsection*{c}
-The mystery city is Chicago.
+
 
 \begin{figure}[h]
     \centering{
